@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: htmly
-          image: glauciocampos/htmly:v3.1.1
+          image: glauciocampos/htmly:v3.1.1-beta
           ports:
             - containerPort: 80
           env:
