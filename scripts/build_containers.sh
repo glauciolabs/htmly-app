@@ -23,7 +23,7 @@ fi
 version="$(yq -r '.app.version' "${info_root}")"
 repository="$(yq -r '.app.container.repository' "${info_container}")"
 base_tag="$(yq -r '.app.container.tag' "${info_container}")"
-platforms="$(yq -r '.app.container.platform // \"linux/amd64\"' "${info_container}")"
+platforms="$(yq -r '.app.container.platform // "linux/amd64"' "${info_container}")"
 vcs_ref="$(git -C "${root_dir}" rev-parse HEAD)"
 sha_short="${vcs_ref:0:7}"
 build_date="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
