@@ -1,0 +1,16 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: htmly
+  annotations:
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+    external-dns.alpha.kubernetes.io/target: "ddb0b78f-c9e7-43f8-887a-acf61e79133c.cfargotunnel.com"
+spec:
+  virtualhost:
+    fqdn: stg.glauciolabs.work
+  routes:
+    - services:
+        - name: htmly
+          port: 80
+      loadBalancerPolicy:
+        strategy: Cookie
