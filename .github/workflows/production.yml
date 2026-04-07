@@ -2,10 +2,7 @@ name: production workflow
 
 permissions:
   contents: write
-<<<<<<< HEAD
-=======
   packages: write
->>>>>>> master-op
 
 on:
   push:
