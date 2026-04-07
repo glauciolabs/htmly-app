@@ -2,7 +2,12 @@ app:
   name: htmly
   version: v3.1.1
   container:
+<<<<<<< HEAD
     registry: DockerHub
     repository: "glauciocampos/htmly"
+=======
+    registry: GitHubContainerRegistry
+    repository: "ghcr.io/glauciolabs/htmly-app"
+>>>>>>> master-op
     tag: v3.1.1
     platform: "linux/amd64,linux/arm64"

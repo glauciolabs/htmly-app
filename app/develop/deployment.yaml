@@ -19,7 +19,11 @@ spec:
     spec:
       containers:
         - name: htmly
+<<<<<<< HEAD
           image: glauciocampos/htmly:v3.1.1
+=======
+          image: ghcr.io/glauciolabs/htmly-app:v3.1.1
+>>>>>>> master-op
           ports:
             - containerPort: 80
           env:
@@ -76,4 +80,8 @@ spec:
               command:
                 - /usr/local/bin/check-commit.sh
             initialDelaySeconds: 60
+<<<<<<< HEAD
             periodSeconds: 120
+=======
+            periodSeconds: 120
+>>>>>>> master-op
