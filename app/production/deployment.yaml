@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: htmly
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  replicas: 2
+  selector:
+    matchLabels:
+      app: htmly
+  template:
+    metadata:
+      labels:
+        app: htmly
+    spec:
+      containers:
+        - name: htmly
+          image: glauciocampos/htmly:v3.1.1
+          ports:
+            - containerPort: 80
+          env:
+            - name: TZ
+              value: America/Sao_Paulo
+            - name: GIT_CONTENT_SCM
+              value: generic
+            - name: GIT_CONTENT_REPO
+              valueFrom:
+                secretKeyRef:
+                  key: GIT_CONTENT_REPO
+                  name: htmly-secrets
+            - name: GIT_CONTENT_BRANCH
+              valueFrom:
+                secretKeyRef:
+                  key: GIT_CONTENT_BRANCH
+                  name: htmly-secrets
+            - name: GIT_CONTENT_USER
+              valueFrom:
+                secretKeyRef:
+                  key: GIT_CONTENT_USER
+                  name: htmly-secrets
+            - name: GIT_CONTENT_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  key: GIT_CONTENT_EMAIL
+                  name: htmly-secrets
+            - name: GIT_CONTENT_HTTP_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: GIT_CONTENT_HTTP_TOKEN
+                  name: htmly-secrets
+            - name: GIT_CONTENT_AUTO_PUSH
+              value: "true"
+            - name: GIT_CONTENT_SYNC_INTERVAL
+              value: "60"
+            - name: GIT_CONTENT_HTTP_USER
+              value: ""
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 1024Mi
+          readinessProbe:
+            exec:
+              command:
+                - /usr/local/bin/check-commit.sh
+            initialDelaySeconds: 30
+            periodSeconds: 60
+          livenessProbe:
+            exec:
+              command:
+                - /usr/local/bin/check-commit.sh
+            initialDelaySeconds: 60
+            periodSeconds: 120
