@@ -1,0 +1,21 @@
+services:
+  htmly:
+    build: .
+    container_name: htmly
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - TZ=America/Sao_Paulo
+      - GIT_CONTENT_SCM=generic
+      - GIT_CONTENT_REPO=
+      - GIT_CONTENT_BRANCH=teste
+      - GIT_CONTENT_USER=HTMLy
+      - GIT_CONTENT_EMAIL=htmly@local
+      - GIT_CONTENT_AUTO_PUSH=true
+      - GIT_CONTENT_SYNC_INTERVAL=60
+      - GIT_CONTENT_HTTP_TOKEN=
+      - GIT_CONTENT_HTTP_USER=
+      - GIT_CONTENT_SSH_KEY=
+      - GIT_CONTENT_SSH_KEY_B64=
+      - GIT_CONTENT_KNOWN_HOSTS=
