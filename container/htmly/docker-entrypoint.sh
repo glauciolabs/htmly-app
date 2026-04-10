@@ -87,6 +87,8 @@ if [ -n "${GIT_CONTENT_REPO:-}" ]; then
 fi
 
 content_root="/var/www/html/content"
+themes_root="/var/www/html/themes"
+repo_themes_dir="$content_root/themes"
 mkdir -p "$content_root/data" \
   "$content_root/data/category" \
   "$content_root/data/field" \
@@ -132,6 +134,21 @@ for field in post page subpage profile; do
     printf '[]' > "$content_root/data/field/${field}.json"
   fi
 done
+
+if [ -d "$repo_themes_dir" ]; then
+  mkdir -p "$themes_root"
+  for theme_dir in "$repo_themes_dir"/*; do
+    if [ ! -d "$theme_dir" ]; then
+      continue
+    fi
+    theme_name="$(basename "$theme_dir")"
+    target_dir="$themes_root/$theme_name"
+    if [ -L "$target_dir" ] || [ -d "$target_dir" ]; then
+      rm -rf "$target_dir"
+    fi
+    ln -s "$theme_dir" "$target_dir"
+  done
+fi
 
 
 exec "$@"
