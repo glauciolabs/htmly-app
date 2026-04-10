@@ -84,6 +84,16 @@ if [ -n "${GIT_CONTENT_REPO:-}" ]; then
   if [ ! -L "/var/www/html/config" ]; then
     ln -s "$config_repo_dir" /var/www/html/config
   fi
+
+  themes_repo_dir="$CONTENT_DIR/themes"
+  mkdir -p "$themes_repo_dir"
+  if [ -d "/var/www/html/themes" ] && [ ! -L "/var/www/html/themes" ]; then
+    cp -a /var/www/html/themes/. "$themes_repo_dir/" 2>/dev/null || true
+    rm -rf /var/www/html/themes
+  fi
+  if [ ! -L "/var/www/html/themes" ]; then
+    ln -s "$themes_repo_dir" /var/www/html/themes
+  fi
 fi
 
 content_root="/var/www/html/content"
